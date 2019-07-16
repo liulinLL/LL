@@ -14,7 +14,6 @@
     <header></header>
     <main>
         <div class="navigation" id="key-nav">
-
         </div>
     </main>
     <footer>
@@ -29,8 +28,7 @@
 
     }
 
-    var hash={'q':'qq.com','w':'weibo.com','r':'renren.com','u':'uc.com'
-    }
+    var hash={'q':'qq.com','w':'weibo.com','i':'iqiyi.com','b':'baidu.com','z':'zhihu.com','t':'tencent.com'}
 
     var hashInlocalStorage=JSON.parse(localStorage.getItem('storage'||'null'))
 
@@ -42,24 +40,41 @@
     
    
     for(var index1=0;index1<keys.length;index1++){
-    var DIV1=document.createElement('div')
+    var DIV1=document.createElement('div')//创建div标签
     document.getElementById('key-nav').appendChild(DIV1)
     
 
     var row=keys[index1]
     for(var index2=0;index2<row.length;index2++)
     {
-        var KBD1=document.createElement('kbd')
-         DIV1.appendChild(KBD1)
-         KBD1.textContent=row[index2]
+        var span=document.createElement('span')
+        var KBD1=document.createElement('kbd')//创建kbd标签
+        span.textContent=row[index2]
+         DIV1.appendChild(KBD1)//将创建的kbd标签，添加到div下
 
-        var Bon=document.createElement('button')
-        KBD1.appendChild(Bon)
+         KBD1.appendChild(span)//将span中的字添加到Kbd标签下
+        //  KBD1.textContent=row[index2]
+        span.className='text'
+        KBD1.className='keystyle'
+     
+
+        var Bon=document.createElement('button')//创建button标签,用于修改每个键对应的网址
+        KBD1.appendChild(Bon)//将创建的button标签，添加在kbd标签下
+        icon=document.createElement('img');//创建img标签
+
+        if(hash[row[index2]]){
+        icon.src='https://'+hash[row[index2]]+'/favicon.ico';//获取哈希表存储的网站绝对路径下图标
+        }
+
+
+        else{
+            icon.src='//i.loli.net/2019/07/16/5d2dc47a5436994204.png'
+        }
+        KBD1.appendChild(icon);//将创建的img标签，添加在kbd标签下, 用于显示导航网站图标
         Bon.textContent='编辑'
         Bon.id=row[index2]
-
+        DIV1.className='keys'
         Bon.onclick=function(Click){
-         
             KEY=Click.target.id
             console.log(KEY)
             x=prompt('输入新网站')
